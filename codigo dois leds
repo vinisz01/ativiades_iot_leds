@@ -1,0 +1,40 @@
+int ledVermelho = 7;
+int ledVerde = 12;
+int botao = 2;
+
+int contador = 0;
+int estadoAnterior = HIGH;
+
+void setup() {
+  pinMode(ledVermelho, OUTPUT);
+  pinMode(ledVerde, OUTPUT);
+  pinMode(botao, INPUT_PULLUP);
+}
+
+void loop() {
+  int estadoBotao = digitalRead(botao);
+
+  if (estadoBotao == LOW && estadoAnterior == HIGH) {
+    contador++;
+
+    if (contador == 1) {
+      digitalWrite(ledVermelho, HIGH);
+      digitalWrite(ledVerde, LOW);
+    }
+
+    if (contador == 2) {
+      digitalWrite(ledVermelho, HIGH);
+      digitalWrite(ledVerde, HIGH);
+    }
+
+    if (contador == 3) {
+      digitalWrite(ledVermelho, LOW);
+      digitalWrite(ledVerde, LOW);
+      contador = 0;
+    }
+
+    delay(200);
+  }
+
+  estadoAnterior = estadoBotao;
+}
